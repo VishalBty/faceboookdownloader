@@ -20,7 +20,11 @@ def download():
 	print("Someone just tried to download", url)
 	with youtube_dl.YoutubeDL() as ydl:
 		url = ydl.extract_info(url, download=False)
-		download_link = (url["formats"][-1]["url"])
+		print(url)
+		try:
+			download_link = url["entries"][-1]["formats"][-1]["url"]
+		except:
+			download_link = url["formats"][-1]["url"]
 		return redirect(download_link+"&dl=1")
 
 if __name__ == '__main__':
